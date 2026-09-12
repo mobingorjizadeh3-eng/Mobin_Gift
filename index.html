@@ -3,106 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mobin Gift - Telegram Gifts</title>
+    <title>Mobin Gift - Telegram Gifts Shop</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&family=Orbitron:wght@500;700;900&display=swap');
 
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(17, 24, 39, 0.75);
+            --bg-color: #060913;
+            --card-bg: rgba(13, 19, 33, 0.8);
             --accent-green: #10b981;
-            --accent-purple: #8b5cf6;
-            --primary-glow: #3b82f6;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --accent-pink: #ec4899;
+            --primary-glow: #6366f1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            transition: all 0.3s ease;
+            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Vazirmatn', sans-serif;
+        html, body {
+            width: 100%;
             min-height: 100vh;
             min-height: 100dvh;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
             position: relative;
-            width: 100vw;
-            padding: 15px;
         }
 
+        /* پس‌زمینه انیمیشنی پویا و غیرتکراری نسبت به وی‌پی‌ان */
         body::before {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(0,0,0,0) 70%);
-            top: -50px;
-            left: -50px;
-            animation: floatGlow 8s infinite alternate ease-in-out;
-            z-index: -1;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -100px;
+            right: -100px;
+            animation: pulseOrb 6s infinite alternate ease-in-out;
+            z-index: 0;
         }
 
         body::after {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
-            bottom: -50px;
-            right: -50px;
-            animation: floatGlow 10s infinite alternate-reverse ease-in-out;
-            z-index: -1;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: pulseOrb 8s infinite alternate-reverse ease-in-out;
+            z-index: 0;
         }
 
-        @keyframes floatGlow {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(20px) scale(1.1); }
+        @keyframes pulseOrb {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .screen {
             display: none;
             width: 100%;
-            max-width: 440px;
-            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .screen.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px) scale(0.98); }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(10px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        /* صفحه زبان */
         #langScreen {
             text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .logo-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #c084fc, #3b82f6, #10b981);
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #6366f1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 22px;
-            text-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.3));
         }
 
         .lang-btns {
             display: flex;
             gap: 12px;
-            justify-content: center;
+            margin-top: 24px;
         }
 
         .btn-lang {
@@ -110,85 +129,119 @@
             padding: 14px;
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.03);
             color: var(--text-main);
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
         }
 
         .btn-lang:hover {
-            border-color: var(--primary-glow);
+            border-color: var(--accent-pink);
+            background: rgba(236, 72, 153, 0.1);
             transform: translateY(-2px);
-            background: rgba(30, 41, 59, 0.85);
         }
 
+        /* هدر اصلی */
         .main-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            background: var(--card-bg);
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
         }
 
         .main-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: var(--text-main);
+            background: linear-gradient(135deg, #ec4899, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .btn-back-lang {
+        .btn-icon {
             background: none;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
-            padding: 5px 10px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 0.8rem;
+            transition: 0.2s;
         }
 
-        .support-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(59, 130, 246, 0.22));
-            border: 1px solid rgba(139, 92, 246, 0.35);
+        .btn-icon:hover {
+            color: var(--text-main);
+            border-color: var(--text-main);
+        }
+
+        /* کارت وضعیت ربات */
+        .bot-status-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            padding: 12px 18px;
             border-radius: 16px;
-            padding: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
         }
 
-        .support-btn {
-            display: inline-block;
-            margin-top: 12px;
-            background: #8b5cf6;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 10px;
-            text-decoration: none;
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
             font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 20px;
         }
 
-        .support-btn:hover {
-            background: #7c3aed;
-            transform: scale(1.02);
+        .status-badge.online {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        .gifts-container {
+        .status-badge.offline {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        .online .dot { background: var(--accent-green); }
+        .offline .dot { background: #ef4444; }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* لیست گیفت‌ها */
+        .box-container {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 18px;
+            border-radius: 20px;
+            padding: 16px;
             backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .gifts-title {
-            font-size: 1.05rem;
+        .box-title {
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 12px;
             display: flex;
@@ -207,30 +260,80 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 14px;
-            background: rgba(15, 23, 42, 0.65);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gift-item:hover {
+            background: rgba(236, 72, 153, 0.06);
+            border-color: rgba(236, 72, 153, 0.3);
+            transform: translateX(2px);
+        }
+
+        .gift-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .gift-name {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
+        }
+
+        .gift-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Orbitron', sans-serif;
         }
 
         .gift-price {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--accent-green);
-            background: rgba(16, 185, 129, 0.12);
-            padding: 5px 10px;
-            border-radius: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-weight: 600;
         }
 
+        /* کارت پشتیبانی */
+        .support-card {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(99, 102, 241, 0.12));
+            border: 1px solid rgba(236, 72, 153, 0.25);
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .support-btn {
+            display: inline-block;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #ec4899, #6366f1);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            transition: 0.2s;
+        }
+
+        .support-btn:hover {
+            transform: scale(1.02);
+            opacity: 0.95;
+        }
+
+        /* Modal / پاپ‌آپ پرداخت و انتقال به ربات */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -238,93 +341,136 @@
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
+            padding: 16px;
         }
+
         .modal-overlay.show {
             opacity: 1;
             pointer-events: auto;
         }
+
         .modal-box {
-            background: #111827;
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            border-radius: 16px;
-            padding: 22px;
-            width: 90%;
+            background: #0f172a;
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            border-radius: 24px;
+            padding: 24px;
+            width: 100%;
             max-width: 360px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             transform: scale(0.9);
             transition: all 0.3s ease;
         }
+
         .modal-overlay.show .modal-box {
             transform: scale(1);
         }
+
         .modal-btn {
-            margin-top: 15px;
-            background: #8b5cf6;
+            width: 100%;
+            margin-top: 14px;
+            background: var(--accent-green);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
-            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
         }
+
+        .modal-btn.bot-action {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+        }
+
+        .modal-btn.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+
         .modal-btn:hover {
-            background: #7c3aed;
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
 
-    <div id="announcementModal" class="modal-overlay">
+    <div class="wrapper">
+        <!-- انتخاب زبان -->
+        <div id="langScreen" class="screen active">
+            <div class="logo-title">Mobin Gift</div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;" id="langSubText">لطفاً زبان خود را انتخاب کنید / Please select language</p>
+            <div class="lang-btns">
+                <button class="btn-lang" onclick="setLanguage('fa')">فارسی 🇮🇷</button>
+                <button class="btn-lang" onclick="setLanguage('en')">English 🇺🇸</button>
+            </div>
+        </div>
+
+        <!-- داشبورد اصلی -->
+        <div id="mainScreen" class="screen">
+            <div class="main-header">
+                <div class="main-title">Mobin Gift</div>
+                <button class="btn-icon" onclick="goBackToLang()" id="langSwitchBtn">🌐 زبان</button>
+            </div>
+
+            <!-- وضعیت ربات (روشن یا خاموش از فایل دیتابیس) -->
+            <div class="bot-status-card">
+                <span id="botStatusLabel">وضعیت ربات تلگرام:</span>
+                <div id="botStatusBadge" class="status-badge online">
+                    <span class="dot"></span>
+                    <span id="botStatusText">ربات آنلاین است</span>
+                </div>
+            </div>
+
+            <!-- لیست گیفت‌ها -->
+            <div class="box-container">
+                <div class="box-title">
+                    <span>🎁</span> <span id="giftsTitleText">گیفت‌های تلگرام</span>
+                </div>
+                <div class="gift-list" id="giftListContainer">
+                    <!-- لود از جیسون -->
+                </div>
+            </div>
+
+            <!-- پشتیبانی -->
+            <div class="support-card">
+                <h3 id="supportHeader" style="font-size: 1rem;">پشتیبانی مجموعه</h3>
+                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px;" id="supportDesc">برای هرگونه سوال یا پیگیری در ارتباط باشید</p>
+                <a href="#" target="_blank" class="support-btn" id="supportBtnLink">ارتباط با پشتیبانی</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال خرید و هدایت به ربات -->
+    <div id="purchaseModal" class="modal-overlay">
         <div class="modal-box">
-            <div style="font-size: 1.8rem; margin-bottom: 8px;">🎁</div>
-            <h3 id="modalTitle" style="margin-bottom: 10px; font-size: 1.1rem;">اطلاعیه مهم</h3>
-            <p id="modalText" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;"></p>
-            <button class="modal-btn" onclick="closeModal()" id="modalBtnText">متوجه شدم</button>
-        </div>
-    </div>
+            <div id="modalGiftIcon" style="font-size: 2.2rem; margin-bottom: 6px;">🎁</div>
+            <h3 id="modalGiftName" style="margin-bottom: 6px; font-size: 1.1rem;">نام گیفت</h3>
+            <p id="modalGiftPrice" style="color: var(--accent-green); font-family: 'Orbitron', sans-serif; font-size: 1rem; margin-bottom: 14px;"></p>
+            
+            <p id="modalDescText" style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 10px;">
+                برای پرداخت نهایی، کارت به کارت و ارسال رسید، لطفاً وارد ربات تلگرامی ما شوید.
+            </p>
 
-    <div id="langScreen" class="screen active">
-        <div class="logo-title">Mobin Gift</div>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px;" id="langSubText">لطفاً زبان خود را انتخاب کنید / Please select your language</p>
-        <div class="lang-btns">
-            <button class="btn-lang" onclick="setLanguage('fa')">فارسی 🇮🇷</button>
-            <button class="btn-lang" onclick="setLanguage('en')">English 🇺🇸</button>
-        </div>
-    </div>
-
-    <div id="mainScreen" class="screen">
-        <div class="main-header">
-            <div class="main-title">Mobin Gift</div>
-            <button class="btn-back-lang" onclick="goBackToLang()" id="langSwitchBtn">🌐 زبان</button>
-        </div>
-
-        <div class="support-card">
-            <h3 id="supportHeader" style="font-size: 1.1rem;">پشتیبانی مجموعه</h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;" id="supportDesc">برای ثبت سفارش و پیگیری با ادمین در ارتباط باشید</p>
-            <a href="#" target="_blank" class="support-btn" id="supportBtnLink">ارتباط با پشتیبانی</a>
-        </div>
-
-        <div class="gifts-container">
-            <div class="gifts-title">
-                <span>⭐</span> <span id="giftsTitleText">گیفت‌های تلگرام (Telegram Gifts)</span>
-            </div>
-            <div class="gift-list" id="giftListContainer">
-                <!-- Fallback items in case json fails -->
-            </div>
+            <a href="#" id="goToBotBtn" target="_blank" class="modal-btn bot-action">ورود به ربات و پرداخت 🤖</a>
+            <button class="modal-btn secondary" onclick="closePurchaseModal()" id="closeModalBtn">انصراف</button>
         </div>
     </div>
 
     <script>
-        // دیتای پیش‌فرض (Fallbacks) برای جلوگیری از باگ خالی ماندن صفحه
         let globalConfig = {
+            "bot_status": true,
             "announcement": "به فروشگاه Mobin Gift خوش آمدید!",
+            "bot_username": "Mobin_Gift_Bot",
             "support_username": "Mobin_VPN_Admin",
             "gifts": {
-                "bear": { "name": "🧸 خرس", "price": "100,000 تومان", "price_en": "100,000 Tomans" },
-                "heart": { "name": "💝 قلب", "price": "115,000 تومان", "price_en": "115,000 Tomans" },
-                "rocket": { "name": "🚀 موشک", "price": "270,000 تومان", "price_en": "270,000 Tomans" }
+                "bear": { "name": "🧸 خرس", "price": "100,000 تومان", "price_en": "100,000 Tomans", "stars": "50 Stars" },
+                "heart": { "name": "💝 قلب", "price": "115,000 تومان", "price_en": "115,000 Tomans", "stars": "75 Stars" },
+                "rocket": { "name": "🚀 موشک", "price": "270,000 تومان", "price_en": "270,000 Tomans", "stars": "150 Stars" }
             }
         };
 
@@ -332,17 +478,14 @@
 
         async function loadConfig() {
             try {
-                const response = await fetch('config.json');
-                if (response.ok) {
-                    const data = await response.json();
-                    globalConfig = data; // اگر فایل بود، جایگزین کن
+                const res = await fetch('config.json');
+                if (res.ok) {
+                    globalConfig = await res.json();
                 }
             } catch (e) {
-                console.log('Using default fallback config', e);
+                console.log('Using fallback config');
             }
         }
-
-        // همین که صفحه باز شد فایل رو لود کن
         loadConfig();
 
         function setLanguage(lang) {
@@ -354,67 +497,92 @@
             if (lang === 'fa') {
                 htmlTag.setAttribute('dir', 'rtl');
                 htmlTag.setAttribute('lang', 'fa');
-                document.getElementById('supportHeader').textContent = 'پشتیبانی مجموعه';
-                document.getElementById('supportDesc').textContent = 'برای ثبت سفارش و پیگیری با ادمین در ارتباط باشید';
-                document.getElementById('supportBtnLink').textContent = 'ارتباط با پشتیبانی';
-                document.getElementById('giftsTitleText').textContent = 'گیفت‌های تلگرام (Telegram Gifts)';
                 document.getElementById('langSwitchBtn').textContent = '🌐 زبان / Language';
-                document.getElementById('modalTitle').textContent = 'اطلاعیه مهم';
-                document.getElementById('modalBtnText').textContent = 'متوجه شدم';
+                document.getElementById('giftsTitleText').textContent = 'گیفت‌های تلگرام';
+                document.getElementById('supportHeader').textContent = 'پشتیبانی مجموعه';
+                document.getElementById('supportDesc').textContent = 'برای هرگونه سوال یا پیگیری در ارتباط باشید';
+                document.getElementById('supportBtnLink').textContent = 'ارتباط با پشتیبانی';
+                document.getElementById('botStatusLabel').textContent = 'وضعیت ربات تلگرام:';
+                document.getElementById('goToBotBtn').textContent = 'ورود به ربات و پرداخت 🤖';
+                document.getElementById('closeModalBtn').textContent = 'انصراف';
             } else {
                 htmlTag.setAttribute('dir', 'ltr');
                 htmlTag.setAttribute('lang', 'en');
+                document.getElementById('langSwitchBtn').textContent = '🌐 Language / زبان';
+                document.getElementById('giftsTitleText').textContent = 'Telegram Gifts';
                 document.getElementById('supportHeader').textContent = 'Support Center';
                 document.getElementById('supportDesc').textContent = 'Contact admin for orders and assistance';
                 document.getElementById('supportBtnLink').textContent = 'Contact Support';
-                document.getElementById('giftsTitleText').textContent = 'Telegram Gifts';
-                document.getElementById('langSwitchBtn').textContent = '🌐 Language / زبان';
-                document.getElementById('modalTitle').textContent = 'Important Notice';
-                document.getElementById('modalBtnText').textContent = 'Got it';
+                document.getElementById('botStatusLabel').textContent = 'Telegram Bot Status:';
+                document.getElementById('goToBotBtn').textContent = 'Open Bot & Pay 🤖';
+                document.getElementById('closeModalBtn').textContent = 'Cancel';
             }
 
-            // تنظیم لینک پشتیبانی
-            document.getElementById('supportBtnLink').href = `https://t.me/${globalConfig.support_username || 'Mobin_VPN_Admin'}`;
+            // وضعیت آنلاین یا آفلاین بودن ربات از دیتابیس (config.json)
+            const badge = document.getElementById('botStatusBadge');
+            const statusText = document.getElementById('botStatusText');
+            if (globalConfig.bot_status === true) {
+                badge.className = 'status-badge online';
+                statusText.textContent = (lang === 'fa') ? 'ربات آنلاین است' : 'Bot is Online';
+            } else {
+                badge.className = 'status-badge offline';
+                statusText.textContent = (lang === 'fa') ? 'ربات موقتاً خاموش است' : 'Bot is Offline';
+            }
 
-            // رندر کردن گیفت‌ها
+            // لینک پشتیبانی
+            document.getElementById('supportBtnLink').href = `https://t.me/${globalConfig.support_username}`;
+
+            // لیست کردن گیفت‌ها
             const container = document.getElementById('giftListContainer');
             container.innerHTML = '';
             
-            const giftsObj = globalConfig.gifts || {};
-            for (const [key, gift] of Object.entries(giftsObj)) {
+            const gifts = globalConfig.gifts || {};
+            for (const [key, gift] of Object.entries(gifts)) {
                 const priceText = (lang === 'fa') ? gift.price : gift.price_en;
+                const subText = gift.stars || '';
                 container.innerHTML += `
-                    <div class="gift-item">
-                        <span class="gift-name">${gift.name}</span>
+                    <div class="gift-item" onclick='openPurchaseModal(${JSON.stringify(gift)})'>
+                        <div class="gift-info">
+                            <span class="gift-name">${gift.name}</span>
+                            <span class="gift-sub">${subText}</span>
+                        </div>
                         <span class="gift-price">${priceText}</span>
                     </div>
                 `;
             }
 
-            // نمایش مودال اطلاعیه در صورت وجود
-            if (globalConfig.announcement && globalConfig.announcement.trim() !== "") {
-                document.getElementById('modalText').textContent = globalConfig.announcement;
-                document.getElementById('announcementModal').classList.add('show');
-            }
-
             langScreen.classList.remove('active');
-            setTimeout(() => {
-                mainScreen.classList.add('active');
-            }, 150);
+            setTimeout(() => { mainScreen.classList.add('active'); }, 150);
         }
 
-        function closeModal() {
-            document.getElementById('announcementModal').classList.remove('show');
+        function openPurchaseModal(gift) {
+            const priceText = (currentLang === 'fa') ? gift.price : gift.price_en;
+            document.getElementById('modalGiftName').textContent = gift.name;
+            document.getElementById('modalGiftPrice').textContent = priceText;
+            
+            const botUser = globalConfig.bot_username || 'Mobin_Gift_Bot';
+            document.getElementById('goToBotBtn').href = `https://t.me/${botUser}`;
+            
+            if (currentLang === 'fa') {
+                document.getElementById('modalDescText').textContent = globalConfig.bot_status === false 
+                    ? '⚠️ ربات در حال حاضر خاموش/بروزرسانی است، اما می‌توانید پیام خود را بگذارید.' 
+                    : 'برای پرداخت نهایی، کارت به کارت و ارسال رسید، لطفاً وارد ربات تلگرامی ما شوید.';
+            } else {
+                document.getElementById('modalDescText').textContent = globalConfig.bot_status === false
+                    ? '⚠️ Bot is currently offline/updating, but you can still send a message.'
+                    : 'For final payment, card transfer, and sending receipt, please open our Telegram bot.';
+            }
+
+            document.getElementById('purchaseModal').classList.add('show');
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').classList.remove('string') || document.getElementById('purchaseModal').classList.remove('show');
         }
 
         function goBackToLang() {
-            const mainScreen = document.getElementById('mainScreen');
-            const langScreen = document.getElementById('langScreen');
-
-            mainScreen.classList.remove('active');
-            setTimeout(() => {
-                langScreen.classList.add('active');
-            }, 150);
+            document.getElementById('mainScreen').classList.remove('active');
+            setTimeout(() => { document.getElementById('langScreen').classList.add('active'); }, 150);
         }
     </script>
 </body>
