@@ -38,6 +38,7 @@
             position: relative;
         }
 
+        /* پس‌زمینه انیمیشنی پویا و غیرتکراری نسبت به وی‌پی‌ان */
         body::before {
             content: '';
             position: absolute;
@@ -95,6 +96,7 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        /* صفحه زبان */
         #langScreen {
             text-align: center;
             padding: 40px 20px;
@@ -141,6 +143,7 @@
             transform: translateY(-2px);
         }
 
+        /* هدر اصلی */
         .main-header {
             display: flex;
             justify-content: space-between;
@@ -177,6 +180,7 @@
             border-color: var(--text-main);
         }
 
+        /* کارت وضعیت ربات */
         .bot-status-card {
             display: flex;
             align-items: center;
@@ -226,6 +230,7 @@
             100% { opacity: 1; }
         }
 
+        /* لیست گیفت‌ها */
         .box-container {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -295,6 +300,7 @@
             font-weight: 600;
         }
 
+        /* کارت پشتیبانی */
         .support-card {
             background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(99, 102, 241, 0.12));
             border: 1px solid rgba(236, 72, 153, 0.25);
@@ -322,6 +328,7 @@
             opacity: 0.95;
         }
 
+        /* Modal / پاپ‌آپ پرداخت و انتقال به ربات */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -380,7 +387,7 @@
         }
 
         .modal-btn.secondary {
-            background: rgba(255, 255, 255,.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
         }
@@ -393,6 +400,7 @@
 <body>
 
     <div class="wrapper">
+        <!-- انتخاب زبان -->
         <div id="langScreen" class="screen active">
             <div class="logo-title">Mobin Gift</div>
             <p style="color: var(--text-muted); font-size: 0.9rem;" id="langSubText">لطفاً زبان خود را انتخاب کنید / Please select language</p>
@@ -402,12 +410,14 @@
             </div>
         </div>
 
+        <!-- داشبورد اصلی -->
         <div id="mainScreen" class="screen">
             <div class="main-header">
                 <div class="main-title">Mobin Gift</div>
                 <button class="btn-icon" onclick="goBackToLang()" id="langSwitchBtn">🌐 زبان</button>
             </div>
 
+            <!-- وضعیت ربات (روشن یا خاموش از فایل دیتابیس) -->
             <div class="bot-status-card">
                 <span id="botStatusLabel">وضعیت ربات تلگرام:</span>
                 <div id="botStatusBadge" class="status-badge online">
@@ -416,13 +426,17 @@
                 </div>
             </div>
 
+            <!-- لیست گیفت‌ها -->
             <div class="box-container">
                 <div class="box-title">
                     <span>🎁</span> <span id="giftsTitleText">گیفت‌های تلگرام</span>
                 </div>
-                <div class="gift-list" id="giftListContainer"></div>
+                <div class="gift-list" id="giftListContainer">
+                    <!-- لود از جیسون -->
+                </div>
             </div>
 
+            <!-- پشتیبانی -->
             <div class="support-card">
                 <h3 id="supportHeader" style="font-size: 1rem;">پشتیبانی مجموعه</h3>
                 <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px;" id="supportDesc">برای هرگونه سوال یا پیگیری در ارتباط باشید</p>
@@ -431,14 +445,16 @@
         </div>
     </div>
 
-    <!-- مودال اطلاعیه و خرید -->
+    <!-- مودال خرید و هدایت به ربات -->
     <div id="purchaseModal" class="modal-overlay">
         <div class="modal-box">
             <div id="modalGiftIcon" style="font-size: 2.2rem; margin-bottom: 6px;">🎁</div>
             <h3 id="modalGiftName" style="margin-bottom: 6px; font-size: 1.1rem;">نام گیفت</h3>
             <p id="modalGiftPrice" style="color: var(--accent-green); font-family: 'Orbitron', sans-serif; font-size: 1rem; margin-bottom: 14px;"></p>
             
-            <p id="modalDescText" style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 10px;"></p>
+            <p id="modalDescText" style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 10px;">
+                برای پرداخت نهایی، کارت به کارت و ارسال رسید، لطفاً وارد ربات تلگرامی ما شوید.
+            </p>
 
             <a href="#" id="goToBotBtn" target="_blank" class="modal-btn bot-action">ورود به ربات و پرداخت 🤖</a>
             <button class="modal-btn secondary" onclick="closePurchaseModal()" id="closeModalBtn">انصراف</button>
@@ -446,45 +462,34 @@
     </div>
 
     <script>
-        // دیتای خالی اولیه تا حتماً از فایل config.json خوانده شود
-        let globalConfig = null;
+        let globalConfig = {
+            "bot_status": true,
+            "announcement": "به فروشگاه Mobin Gift خوش آمدید!",
+            "bot_username": "Mobin_Gift_Bot",
+            "support_username": "Mobin_VPN_Admin",
+            "gifts": {
+                "bear": { "name": "🧸 خرس", "price": "100,000 تومان", "price_en": "100,000 Tomans", "stars": "50 Stars" },
+                "heart": { "name": "💝 قلب", "price": "115,000 تومان", "price_en": "115,000 Tomans", "stars": "75 Stars" },
+                "rocket": { "name": "🚀 موشک", "price": "270,000 تومان", "price_en": "270,000 Tomans", "stars": "150 Stars" }
+            }
+        };
+
         let currentLang = 'fa';
 
-        // لود اجباری فایل config.json با پارامتر زمان برای جلوگیری از کش شدن
         async function loadConfig() {
             try {
-                const res = await fetch('config.json?v=' + new Date().getTime());
+                const res = await fetch('config.json');
                 if (res.ok) {
                     globalConfig = await res.json();
                 }
             } catch (e) {
-                console.log('Error loading config.json', e);
+                console.log('Using fallback config');
             }
         }
+        loadConfig();
 
-        async function setLanguage(lang) {
+        function setLanguage(lang) {
             currentLang = lang;
-            
-            // منتظر می‌مانیم تا اطلاعات جدید حتماً از گیت‌هاب خوانده شود
-            if (!globalConfig) {
-                await loadConfig();
-            }
-
-            // اگر باز هم به هر دلیلی نخواند، مقادیر پیش‌فرضِ مطابق با فایل شما اعمال می‌شود
-            if (!globalConfig) {
-                globalConfig = {
-                    "bot_status": false,
-                    "announcement": "ربات در حال حاضر خاموش است",
-                    "bot_username": "Mobin_Gift_Bot",
-                    "support_username": "Mobin_VPN_Admin",
-                    "gifts": {
-                        "bear": { "name": "🧸 خرس", "price": "100,000 تومان", "stars": "50 Stars" },
-                        "heart": { "name": "💝 قلب", "price": "115,000 تومان", "stars": "75 Stars" },
-                        "rocket": { "name": "🚀 موشک", "price": "270,000 تومان", "stars": "150 Stars" }
-                    }
-                };
-            }
-
             const htmlTag = document.getElementById('htmlTag');
             const langScreen = document.getElementById('langScreen');
             const mainScreen = document.getElementById('mainScreen');
@@ -513,7 +518,7 @@
                 document.getElementById('closeModalBtn').textContent = 'Cancel';
             }
 
-            // تنظیم وضعیت ربات بر اساس فیلد فایل جیسون
+            // وضعیت آنلاین یا آفلاین بودن ربات از دیتابیس (config.json)
             const badge = document.getElementById('botStatusBadge');
             const statusText = document.getElementById('botStatusText');
             if (globalConfig.bot_status === true) {
@@ -524,14 +529,16 @@
                 statusText.textContent = (lang === 'fa') ? 'ربات موقتاً خاموش است' : 'Bot is Offline';
             }
 
+            // لینک پشتیبانی
             document.getElementById('supportBtnLink').href = `https://t.me/${globalConfig.support_username}`;
 
+            // لیست کردن گیفت‌ها
             const container = document.getElementById('giftListContainer');
             container.innerHTML = '';
             
             const gifts = globalConfig.gifts || {};
             for (const [key, gift] of Object.entries(gifts)) {
-                const priceText = gift.price || '';
+                const priceText = (lang === 'fa') ? gift.price : gift.price_en;
                 const subText = gift.stars || '';
                 container.innerHTML += `
                     <div class="gift-item" onclick='openPurchaseModal(${JSON.stringify(gift)})'>
@@ -544,46 +551,25 @@
                 `;
             }
 
-            // اگر اطلاعیه در جیسون وجود داشت، به محض ورود به صفحه اصلی به عنوان پاپ‌آپ نمایش داده می‌شود
-            if (globalConfig.announcement && globalConfig.announcement.trim() !== "") {
-                openAnnouncementModal(globalConfig.announcement);
-            }
-
             langScreen.classList.remove('active');
             setTimeout(() => { mainScreen.classList.add('active'); }, 150);
         }
 
-        function openAnnouncementModal(text) {
-            document.getElementById('modalGiftIcon').textContent = '📢';
-            document.getElementById('modalGiftName').textContent = (currentLang === 'fa') ? 'اطلاعیه مهم' : 'Important Notice';
-            document.getElementById('modalGiftPrice').style.display = 'none';
-            document.getElementById('modalDescText').textContent = text;
-            
-            const botUser = globalConfig.bot_username || 'Mobin_Gift_Bot';
-            document.getElementById('goToBotBtn').href = `https://t.me/${botUser}`;
-            document.getElementById('goToBotBtn').textContent = (currentLang === 'fa') ? 'ورود به ربات تلگرام 🤖' : 'Open Telegram Bot 🤖';
-            
-            document.getElementById('purchaseModal').classList.add('show');
-        }
-
         function openPurchaseModal(gift) {
-            document.getElementById('modalGiftIcon').textContent = '🎁';
+            const priceText = (currentLang === 'fa') ? gift.price : gift.price_en;
             document.getElementById('modalGiftName').textContent = gift.name;
-            const priceText = gift.price || '';
-            document.getElementById('modalGiftPrice').style.display = 'block';
             document.getElementById('modalGiftPrice').textContent = priceText;
             
             const botUser = globalConfig.bot_username || 'Mobin_Gift_Bot';
             document.getElementById('goToBotBtn').href = `https://t.me/${botUser}`;
-            document.getElementById('goToBotBtn').textContent = (currentLang === 'fa') ? 'ورود به ربات و پرداخت 🤖' : 'Open Bot & Pay 🤖';
             
             if (currentLang === 'fa') {
                 document.getElementById('modalDescText').textContent = globalConfig.bot_status === false 
-                    ? '⚠️ ربات در حال حاضر خاموش است، اما می‌توانید وارد ربات شوید یا پیام بگذارید.' 
+                    ? '⚠️ ربات در حال حاضر خاموش/بروزرسانی است، اما می‌توانید پیام خود را بگذارید.' 
                     : 'برای پرداخت نهایی، کارت به کارت و ارسال رسید، لطفاً وارد ربات تلگرامی ما شوید.';
             } else {
-                document.getElementById('modalDescText'].textContent = globalConfig.bot_status === false
-                    ? '⚠️ Bot is currently offline, but you can still open it.'
+                document.getElementById('modalDescText').textContent = globalConfig.bot_status === false
+                    ? '⚠️ Bot is currently offline/updating, but you can still send a message.'
                     : 'For final payment, card transfer, and sending receipt, please open our Telegram bot.';
             }
 
@@ -591,7 +577,7 @@
         }
 
         function closePurchaseModal() {
-            document.getElementById('purchaseModal').classList.remove('show');
+            document.getElementById('purchaseModal').classList.remove('string') || document.getElementById('purchaseModal').classList.remove('show');
         }
 
         function goBackToLang() {
