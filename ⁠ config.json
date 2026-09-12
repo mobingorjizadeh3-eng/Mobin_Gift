@@ -1,13 +1,15 @@
 {
+  "bot_status": true,
   "announcement": "به فروشگاه Mobin Gift خوش آمدید! گیفت‌ها با کمترین زمان ممکن ارسال می‌شوند.",
   "card_info": {
     "number": "5022291523679148",
     "owner": "مبین"
   },
+  "bot_username": "Mobin_Gift_Bot",
   "support_username": "Mobin_VPN_Admin",
   "gifts": {
-    "bear": { "name": "🧸 خرس", "price": "100,000 تومان", "price_en": "100,000 Tomans" },
-    "heart": { "name": "💝 قلب", "price": "115,000 تومان", "price_en": "115,000 Tomans" },
-    "rocket": { "name": "🚀 موشک", "price": "270,000 تومان", "price_en": "270,000 Tomans" }
+    "bear": { "name": "🧸 خرس", "price": "100,000 تومان", "price_en": "100,000 Tomans", "stars": "50 Stars" },
+    "heart": { "name": "💝 قلب", "price": "115,000 تومان", "price_en": "115,000 Tomans", "stars": "75 Stars" },
+    "rocket": { "name": "🚀 موشک", "price": "270,000 تومان", "price_en": "270,000 Tomans", "stars": "150 Stars" }
   }
 }
