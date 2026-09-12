@@ -97,12 +97,6 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 22px;
             text-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
-            animation: pulseGlow 3s infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            0% { filter: drop-shadow(0 0 10px rgba(139,92,246,0.3)); }
-            100% { filter: drop-shadow(0 0 25px rgba(59,130,246,0.5)); }
         }
 
         .lang-btns {
@@ -232,7 +226,6 @@
             border-radius: 8px;
         }
 
-        /* Modal Popup */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -283,7 +276,6 @@
 </head>
 <body>
 
-    <!-- Announcement Modal -->
     <div id="announcementModal" class="modal-overlay">
         <div class="modal-box">
             <div style="font-size: 1.8rem; margin-bottom: 8px;">🎁</div>
@@ -293,7 +285,6 @@
         </div>
     </div>
 
-    <!-- Language Selection Screen -->
     <div id="langScreen" class="screen active">
         <div class="logo-title">Mobin Gift</div>
         <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px;" id="langSubText">لطفاً زبان خود را انتخاب کنید / Please select your language</p>
@@ -303,7 +294,6 @@
         </div>
     </div>
 
-    <!-- Main Dashboard Screen -->
     <div id="mainScreen" class="screen">
         <div class="main-header">
             <div class="main-title">Mobin Gift</div>
@@ -321,23 +311,38 @@
                 <span>⭐</span> <span id="giftsTitleText">گیفت‌های تلگرام (Telegram Gifts)</span>
             </div>
             <div class="gift-list" id="giftListContainer">
-                <!-- Dynamically loaded from config.json -->
+                <!-- Fallback items in case json fails -->
             </div>
         </div>
     </div>
 
     <script>
-        let globalConfig = null;
+        // دیتای پیش‌فرض (Fallbacks) برای جلوگیری از باگ خالی ماندن صفحه
+        let globalConfig = {
+            "announcement": "به فروشگاه Mobin Gift خوش آمدید!",
+            "support_username": "Mobin_VPN_Admin",
+            "gifts": {
+                "bear": { "name": "🧸 خرس", "price": "100,000 تومان", "price_en": "100,000 Tomans" },
+                "heart": { "name": "💝 قلب", "price": "115,000 تومان", "price_en": "115,000 Tomans" },
+                "rocket": { "name": "🚀 موشک", "price": "270,000 تومان", "price_en": "270,000 Tomans" }
+            }
+        };
+
         let currentLang = 'fa';
 
         async function loadConfig() {
             try {
                 const response = await fetch('config.json');
-                globalConfig = await response.json();
+                if (response.ok) {
+                    const data = await response.json();
+                    globalConfig = data; // اگر فایل بود، جایگزین کن
+                }
             } catch (e) {
-                console.error('Error loading config', e);
+                console.log('Using default fallback config', e);
             }
         }
+
+        // همین که صفحه باز شد فایل رو لود کن
         loadConfig();
 
         function setLanguage(lang) {
@@ -368,28 +373,28 @@
                 document.getElementById('modalBtnText').textContent = 'Got it';
             }
 
-            if (globalConfig) {
-                // Set Support Link
-                document.getElementById('supportBtnLink').href = `https://t.me/${globalConfig.support_username}`;
+            // تنظیم لینک پشتیبانی
+            document.getElementById('supportBtnLink').href = `https://t.me/${globalConfig.support_username || 'Mobin_VPN_Admin'}`;
 
-                // Render Gifts
-                const container = document.getElementById('giftListContainer');
-                container.innerHTML = '';
-                for (const [key, gift] of Object.entries(globalConfig.gifts)) {
-                    const priceText = (lang === 'fa') ? gift.price : gift.price_en;
-                    container.innerHTML += `
-                        <div class="gift-item">
-                            <span class="gift-name">${gift.name}</span>
-                            <span class="gift-price">${priceText}</span>
-                        </div>
-                    `;
-                }
+            // رندر کردن گیفت‌ها
+            const container = document.getElementById('giftListContainer');
+            container.innerHTML = '';
+            
+            const giftsObj = globalConfig.gifts || {};
+            for (const [key, gift] of Object.entries(giftsObj)) {
+                const priceText = (lang === 'fa') ? gift.price : gift.price_en;
+                container.innerHTML += `
+                    <div class="gift-item">
+                        <span class="gift-name">${gift.name}</span>
+                        <span class="gift-price">${priceText}</span>
+                    </div>
+                `;
+            }
 
-                // Announcement Modal
-                if (globalConfig.announcement && globalConfig.announcement.trim() !== "") {
-                    document.getElementById('modalText').textContent = globalConfig.announcement;
-                    document.getElementById('announcementModal').classList.add('show');
-                }
+            // نمایش مودال اطلاعیه در صورت وجود
+            if (globalConfig.announcement && globalConfig.announcement.trim() !== "") {
+                document.getElementById('modalText').textContent = globalConfig.announcement;
+                document.getElementById('announcementModal').classList.add('show');
             }
 
             langScreen.classList.remove('active');
