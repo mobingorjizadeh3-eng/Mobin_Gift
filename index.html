@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" id="htmlTag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobin Gift - Telegram Gifts</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&family=Orbitron:wght@500;700;900&display=swap');
+
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.75);
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --primary-glow: #3b82f6;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Vazirmatn', sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            width: 100vw;
+            padding: 15px;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(0,0,0,0) 70%);
+            top: -50px;
+            left: -50px;
+            animation: floatGlow 8s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
+            bottom: -50px;
+            right: -50px;
+            animation: floatGlow 10s infinite alternate-reverse ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(20px) scale(1.1); }
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 440px;
+            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        #langScreen {
+            text-align: center;
+        }
+
+        .logo-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #c084fc, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 22px;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(139,92,246,0.3)); }
+            100% { filter: drop-shadow(0 0 25px rgba(59,130,246,0.5)); }
+        }
+
+        .lang-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-lang {
+            flex: 1;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-lang:hover {
+            border-color: var(--primary-glow);
+            transform: translateY(-2px);
+            background: rgba(30, 41, 59, 0.85);
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .btn-back-lang {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .support-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(59, 130, 246, 0.22));
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .support-btn {
+            display: inline-block;
+            margin-top: 12px;
+            background: #8b5cf6;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .support-btn:hover {
+            background: #7c3aed;
+            transform: scale(1.02);
+        }
+
+        .gifts-container {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 18px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .gifts-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gift-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .gift-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            background: rgba(15, 23, 42, 0.65);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .gift-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .gift-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.12);
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-box {
+            background: #111827;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 16px;
+            padding: 22px;
+            width: 90%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.show .modal-box {
+            transform: scale(1);
+        }
+        .modal-btn {
+            margin-top: 15px;
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        .modal-btn:hover {
+            background: #7c3aed;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Announcement Modal -->
+    <div id="announcementModal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="font-size: 1.8rem; margin-bottom: 8px;">🎁</div>
+            <h3 id="modalTitle" style="margin-bottom: 10px; font-size: 1.1rem;">اطلاعیه مهم</h3>
+            <p id="modalText" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;"></p>
+            <button class="modal-btn" onclick="closeModal()" id="modalBtnText">متوجه شدم</button>
+        </div>
+    </div>
+
+    <!-- Language Selection Screen -->
+    <div id="langScreen" class="screen active">
+        <div class="logo-title">Mobin Gift</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px;" id="langSubText">لطفاً زبان خود را انتخاب کنید / Please select your language</p>
+        <div class="lang-btns">
+            <button class="btn-lang" onclick="setLanguage('fa')">فارسی 🇮🇷</button>
+            <button class="btn-lang" onclick="setLanguage('en')">English 🇺🇸</button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Screen -->
+    <div id="mainScreen" class="screen">
+        <div class="main-header">
+            <div class="main-title">Mobin Gift</div>
+            <button class="btn-back-lang" onclick="goBackToLang()" id="langSwitchBtn">🌐 زبان</button>
+        </div>
+
+        <div class="support-card">
+            <h3 id="supportHeader" style="font-size: 1.1rem;">پشتیبانی مجموعه</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;" id="supportDesc">برای ثبت سفارش و پیگیری با ادمین در ارتباط باشید</p>
+            <a href="#" target="_blank" class="support-btn" id="supportBtnLink">ارتباط با پشتیبانی</a>
+        </div>
+
+        <div class="gifts-container">
+            <div class="gifts-title">
+                <span>⭐</span> <span id="giftsTitleText">گیفت‌های تلگرام (Telegram Gifts)</span>
+            </div>
+            <div class="gift-list" id="giftListContainer">
+                <!-- Dynamically loaded from config.json -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let globalConfig = null;
+        let currentLang = 'fa';
+
+        async function loadConfig() {
+            try {
+                const response = await fetch('config.json');
+                globalConfig = await response.json();
+            } catch (e) {
+                console.error('Error loading config', e);
+            }
+        }
+        loadConfig();
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const htmlTag = document.getElementById('htmlTag');
+            const langScreen = document.getElementById('langScreen');
+            const mainScreen = document.getElementById('mainScreen');
+
+            if (lang === 'fa') {
+                htmlTag.setAttribute('dir', 'rtl');
+                htmlTag.setAttribute('lang', 'fa');
+                document.getElementById('supportHeader').textContent = 'پشتیبانی مجموعه';
+                document.getElementById('supportDesc').textContent = 'برای ثبت سفارش و پیگیری با ادمین در ارتباط باشید';
+                document.getElementById('supportBtnLink').textContent = 'ارتباط با پشتیبانی';
+                document.getElementById('giftsTitleText').textContent = 'گیفت‌های تلگرام (Telegram Gifts)';
+                document.getElementById('langSwitchBtn').textContent = '🌐 زبان / Language';
+                document.getElementById('modalTitle').textContent = 'اطلاعیه مهم';
+                document.getElementById('modalBtnText').textContent = 'متوجه شدم';
+            } else {
+                htmlTag.setAttribute('dir', 'ltr');
+                htmlTag.setAttribute('lang', 'en');
+                document.getElementById('supportHeader').textContent = 'Support Center';
+                document.getElementById('supportDesc').textContent = 'Contact admin for orders and assistance';
+                document.getElementById('supportBtnLink').textContent = 'Contact Support';
+                document.getElementById('giftsTitleText').textContent = 'Telegram Gifts';
+                document.getElementById('langSwitchBtn').textContent = '🌐 Language / زبان';
+                document.getElementById('modalTitle').textContent = 'Important Notice';
+                document.getElementById('modalBtnText').textContent = 'Got it';
+            }
+
+            if (globalConfig) {
+                // Set Support Link
+                document.getElementById('supportBtnLink').href = `https://t.me/${globalConfig.support_username}`;
+
+                // Render Gifts
+                const container = document.getElementById('giftListContainer');
+                container.innerHTML = '';
+                for (const [key, gift] of Object.entries(globalConfig.gifts)) {
+                    const priceText = (lang === 'fa') ? gift.price : gift.price_en;
+                    container.innerHTML += `
+                        <div class="gift-item">
+                            <span class="gift-name">${gift.name}</span>
+                            <span class="gift-price">${priceText}</span>
+                        </div>
+                    `;
+                }
+
+                // Announcement Modal
+                if (globalConfig.announcement && globalConfig.announcement.trim() !== "") {
+                    document.getElementById('modalText').textContent = globalConfig.announcement;
+                    document.getElementById('announcementModal').classList.add('show');
+                }
+            }
+
+            langScreen.classList.remove('active');
+            setTimeout(() => {
+                mainScreen.classList.add('active');
+            }, 150);
+        }
+
+        function closeModal() {
+            document.getElementById('announcementModal').classList.remove('show');
+        }
+
+        function goBackToLang() {
+            const mainScreen = document.getElementById('mainScreen');
+            const langScreen = document.getElementById('langScreen');
+
+            mainScreen.classList.remove('active');
+            setTimeout(() => {
+                langScreen.classList.add('active');
+            }, 150);
+        }
+    </script>
+</body>
+</html>
